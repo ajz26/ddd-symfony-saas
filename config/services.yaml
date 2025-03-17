@@ -20,9 +20,12 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\Cards\Domain\Repository\CardsRepositoryInterface:
+        class : App\Cards\Infrastructure\Persistence\Doctrine\Repository\DoctrineCardRepository
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    App\Cards\EventListener\ApiExceptionListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.exception }
+    # App\Cards\EventListener\ApiExceptionListener:
+    #     tags:
+    #         - { name: kernel.event_listener, event: kernel.exception }

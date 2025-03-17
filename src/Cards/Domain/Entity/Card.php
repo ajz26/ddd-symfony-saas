@@ -1,148 +1,62 @@
 <?php
-namespace App\Cards\Entity;
-
-use Doctrine\ORM\Mapping as ORM;
-use App\Cards\Repository\CardRepository;
-use App\Cards\Interfaces\Card as CardInterface;
-
-
-#[ORM\Entity(repositoryClass: CardRepository::class)]
-#[ORM\Table(name: 'cards')]
-class Card implements CardInterface
+namespace App\Cards\Domain\Entity;
+class Card 
 {
     
-
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(length: 255)]
-    private string $link;
-
-    #[ORM\Column(length: 255)]
-    private string $logo;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $link = null;
+    private ?string $logo = null;
     private ?string $test_seal = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
     private ?string $test_seal_url = null;
-
-    #[ORM\Column]
-    private int $bank_id;
-
-    #[ORM\Column]
-    private int $product_id;
-
-    #[ORM\Column(type: 'json')]
-    private array $description;
-
-    #[ORM\Column(type: 'text', nullable: true)]
+    private ?int $bank_id = null;
+    private ?int $product_id = null;
+    private ?array $description = null;
     private ?string $custom_description = null;
-
-    #[ORM\Column(length: 255)]
-    private string $bank;
-
-    #[ORM\Column(length: 255)]
-    private string $product;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $bank = null;
+    private ?string $product = null;
     private ?string $custom_product_name = null;
-
-    #[ORM\Column(type: 'decimal', precision: 2, scale: 1, nullable: true)]
     private ?float $rating = null;
-
-    #[ORM\Column(type: 'boolean')]
     private bool $evaluation_number = false;
-
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: true)]
     private ?float $incentive = null;
-
-    #[ORM\Column(type: 'float', nullable: true)]
     private ?float $fees = null;
-
-    #[ORM\Column(type: 'float', nullable: true)]
     private ?float $cost = null;
-
-    #[ORM\Column(type: 'boolean')]
     private bool $bonusprogram = false;
-
-    #[ORM\Column(type: 'boolean')]
     private bool $insurance = false;
-
-    #[ORM\Column(type: 'boolean')]
     private bool $benefits = false;
-
-    #[ORM\Column(type: 'boolean')]
     private bool $services = false;
-
-    #[ORM\Column(type: 'json', nullable: true)]
     private ?array $special_features = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
     private ?string $fees_action = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
     private ?string $cost_action = null;
-
-    #[ORM\Column(type: 'float')]
-    private float $fees_first_year;
-
-    #[ORM\Column(type: 'float')]
-    private float $fees_after_first_year;
-
-    #[ORM\Column(type: 'float')]
-    private float $gc_atmfree_domestic;
-
-    #[ORM\Column(type: 'float')]
-    private float $gc_atmfree_international;
-
-    #[ORM\Column(type: 'float')]
-    private float $cc_atmfree_domestic;
-
-    #[ORM\Column(type: 'float')]
-    private float $cc_atmfree_international;
-
-    #[ORM\Column(type: 'float')]
-    private float $incentive_amount;
-
-    #[ORM\Column(type: 'float')]
-    private float $interest_rate;
-
-    #[ORM\Column(type: 'float')]
-    private float $shall_interest_rate;
-
-    #[ORM\Column(type: 'smallint')]
-    private int $cardtype = 0;
-
-    #[ORM\Column(length: 10)]
-    private string $cardtype_text;
-
-    #[ORM\Column(type: 'float')]
-    private float $cc_atmfree_euro;
-
-    #[ORM\Column(type: 'boolean')]
+    private ?float $fees_first_year = null;
+    private ?float $fees_after_first_year = null;
+    private ?float $gc_atmfree_domestic = null;
+    private ?float $gc_atmfree_international = null;
+    private ?float $cc_atmfree_domestic = null;
+    private ?float $cc_atmfree_international = null;
+    private ?float $incentive_amount = null;
+    private ?float $interest_rate = null;
+    private ?float $shall_interest_rate = null;
+    private ?int $cardtype = null;
+    private ?string $cardtype_text = null;
+    private ?float $cc_atmfree_euro = null;
     private bool $kkoffer = false;
-
-    #[ORM\Column(type: 'datetime')]
-    private \DateTime $created_at;
-
-    #[ORM\Column(type: 'datetime')]
-    private \DateTime $updated_at;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    private ?\DateTime $created_at = null;
+    private ?\DateTime $updated_at = null;
     private ?string $custom_cost_action = null;
-
-    #[ORM\Column(length: 255)]
-    private string $content_crc;
+    private ?string $content_crc = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getLink(): string
+    public function setId(int $id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getLink(): ?string
     {
         return $this->link;
     }
@@ -153,7 +67,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getLogo(): string
+    public function getLogo(): ?string
     {
         return $this->logo;
     }
@@ -186,7 +100,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getBankId(): int
+    public function getBankId(): ?int
     {
         return $this->bank_id;
     }
@@ -197,7 +111,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getProductId(): int
+    public function getProductId(): ?int
     {
         return $this->product_id;
     }
@@ -208,7 +122,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getDescription(): array
+    public function getDescription(): ?array
     {
         return $this->description;
     }
@@ -230,7 +144,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getBank(): string
+    public function getBank(): ?string
     {
         return $this->bank;
     }
@@ -241,7 +155,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getProduct(): string
+    public function getProduct(): ?string
     {
         return $this->product;
     }
@@ -395,7 +309,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getFeesFirstYear(): float
+    public function getFeesFirstYear(): ?float
     {
         return $this->fees_first_year;
     }
@@ -406,7 +320,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getFeesAfterFirstYear(): float
+    public function getFeesAfterFirstYear(): ?float
     {
         return $this->fees_after_first_year;
     }
@@ -417,7 +331,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getGcAtmfreeDomestic(): float
+    public function getGcAtmfreeDomestic(): ?float
     {
         return $this->gc_atmfree_domestic;
     }
@@ -428,7 +342,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getGcAtmfreeInternational(): float
+    public function getGcAtmfreeInternational(): ?float
     {
         return $this->gc_atmfree_international;
     }
@@ -439,7 +353,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getCcAtmfreeDomestic(): float
+    public function getCcAtmfreeDomestic(): ?float
     {
         return $this->cc_atmfree_domestic;
     }
@@ -450,7 +364,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getCcAtmfreeInternational(): float
+    public function getCcAtmfreeInternational(): ?float
     {
         return $this->cc_atmfree_international;
     }
@@ -461,7 +375,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getIncentiveAmount(): float
+    public function getIncentiveAmount(): ?float
     {
         return $this->incentive_amount;
     }
@@ -472,7 +386,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getInterestRate(): float
+    public function getInterestRate(): ?float
     {
         return $this->interest_rate;
     }
@@ -483,7 +397,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getShallInterestRate(): float
+    public function getShallInterestRate(): ?float
     {
         return $this->shall_interest_rate;
     }
@@ -494,7 +408,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getCardtype(): int
+    public function getCardtype(): ?int
     {
         return $this->cardtype;
     }
@@ -505,7 +419,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getCardtypeText(): string
+    public function getCardtypeText(): ?string
     {
         return $this->cardtype_text;
     }
@@ -516,7 +430,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getCcAtmfreeEuro(): float
+    public function getCcAtmfreeEuro(): ?float
     {
         return $this->cc_atmfree_euro;
     }
@@ -571,7 +485,7 @@ class Card implements CardInterface
         return $this;
     }
 
-    public function getContentCrc(): string
+    public function getContentCrc(): ?string
     {
         return $this->content_crc;
     }

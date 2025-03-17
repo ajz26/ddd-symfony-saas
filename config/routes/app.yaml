@@ -1,11 +1,5 @@
-
-base:
-    resource: ../../src/Api/Controller/BaseController.php
-    type: attribute
-    name_prefix: base.
-
 cards:
-    resource: ../../src/Cards/Controller/
+    resource: ../../src/Cards/Presentantion/Controller/CardController.php
     type: attribute
     prefix: /api/v1/cards
     name_prefix: cards.

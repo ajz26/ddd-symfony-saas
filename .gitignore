@@ -7,4 +7,5 @@
 /public/bundles/
 /var/
 /vendor/
+/src_old/
 ###< symfony/framework-bundle ###
