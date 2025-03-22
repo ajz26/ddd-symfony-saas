@@ -15,8 +15,8 @@ class Card
     private ?string $customDescription;
     private Bank $bank;
     private CardType $type;
-    // private Money $annualFee;
-    // private Money $firstYearFee;
+    private Money $firstYearFee;
+    private float $tae;
     private array $benefits;
     private array $insurances;
     private array $services;
@@ -39,6 +39,8 @@ class Card
         $this->benefits = [];
         $this->insurances = [];
         $this->services = [];
+        $this->firstYearFee = Money::fromFloat(0);
+        $this->tae = 0;
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
     }
@@ -78,16 +80,15 @@ class Card
         $this->updatedAt = new \DateTimeImmutable();
     }
 
-    public function setAnnualFee(Money $fee): void
-    {
-        $this->annualFee = $fee;
-    }
-
     public function setFirstYearFee(Money $fee): void
     {
         $this->firstYearFee = $fee;
     }
 
+    public function getFirstYearFee(): Money
+    {
+        return $this->firstYearFee;
+    }
     public function addBenefit(string $benefit): void
     {
         $this->benefits[] = $benefit;
@@ -153,4 +154,20 @@ class Card
     {
         return $this->updatedAt;
     }
+
+    public function getTae(): float
+    {
+        return $this->tae;
+    }
+
+    public function setTae(float $tae): void
+    {
+        $this->tae = $tae;
+    }
+
+    public function getBenefits(): array
+    {
+        return $this->benefits;
+    }
+
 }

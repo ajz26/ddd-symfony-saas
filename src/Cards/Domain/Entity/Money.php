@@ -22,6 +22,11 @@ class Money
         return new self($amount, $currency);
     }
 
+    public static function fromString(string $amount, string $currency = 'EUR'): self
+    {
+        return new self(floatval($amount), $currency);
+    }
+
     public static function zero(string $currency = 'EUR'): self
     {
         return new self(0.0, $currency);

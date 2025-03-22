@@ -11,15 +11,17 @@
 
         <field name="name" type="string" length="255"/>
         <field name="description" type="text"/>
+        <field name="tae" type="float"/>
         <!-- <field name="customDescription" type="text" nullable="true"/> -->
         
         <!-- Bank Value Object -->
         <embedded name="bank" class="App\Cards\Domain\Entity\Bank"/>
         
         <!-- CardType Value Object -->
-        <!-- <embedded nazme="type" class="App\Cards\Domain\Entity\CardType"/> -->
+        <embedded name="type" class="App\Cards\Domain\Entity\CardType" use-column-prefix="false"/>
         
-
+        <!-- Money Value Object -->
+        <embedded name="firstYearFee" class="App\Cards\Domain\Entity\Money"/>
         
         <!-- Arrays -->
        <field name="benefits" type="json"/>

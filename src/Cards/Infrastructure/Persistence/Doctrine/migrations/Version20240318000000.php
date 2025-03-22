@@ -34,10 +34,10 @@ final class Version20240318000000 extends AbstractMigration
             card_type_display VARCHAR(255) NOT NULL,
             
             -- Money Value Objects
-            annual_fee_amount DECIMAL(10,2) NOT NULL,
-            annual_fee_currency VARCHAR(3) NOT NULL,
             first_year_fee_amount DECIMAL(10,2) NOT NULL,
             first_year_fee_currency VARCHAR(3) NOT NULL,
+            
+            tae DECIMAL(10,2) NOT NULL,
             
             -- Arrays
             benefits JSON NOT NULL,

@@ -12,6 +12,8 @@ class FinanceAdsCardAdapter
 {
     public function toDomain(array $providerData): Card
     {
+
+        // dd($providerData);
         $bank = Bank::create(
             $providerData['bankid'],
             $providerData['bank'],
@@ -31,12 +33,12 @@ class FinanceAdsCardAdapter
             ContentHash::fromContent($providerData)
         );
 
-        if (isset($providerData['fees'])) {
-            $card->setAnnualFee(Money::fromFloat($providerData['fees']));
+        if (isset($providerData['incentive_amount'])) {
+            $card->setTae($providerData['incentive_amount']);
         }
 
-        if (isset($providerData['fees_first_year'])) {
-            $card->setFirstYearFee(Money::fromFloat($providerData['fees_first_year']));
+        if (isset($providerData['gebuehrenjahr1'])) {
+            $card->setFirstYearFee(Money::fromString($providerData['gebuehrenjahr1']));
         }
 
         foreach ($providerData['benefits'] ?? [] as $benefit) {

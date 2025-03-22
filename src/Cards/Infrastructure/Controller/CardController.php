@@ -21,8 +21,8 @@ class CardController extends AbstractController
     #[Route('/import/{provider}', name: 'app_cards_import', methods: ['GET'])]
     public function import(AsyncCardImportService $asyncCardImportService, CardImportService $card_import_service, string $provider)
     {
-        // $cards = $card_import_service->importCards($provider);
-        $test = $asyncCardImportService->dispatchImport($provider);
-        return $this->json(['message' => 'Import started']);
+        $cards = $card_import_service->importCards($provider);
+        // $test = $asyncCardImportService->dispatchImport($provider);
+        return $this->json(['message' => 'Import started', 'cards' => $cards]);
     }
 }
