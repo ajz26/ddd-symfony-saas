@@ -1,5 +1,5 @@
 cards:
-    resource: ../../src/Cards/Presentantion/Controller/CardController.php
+    resource: ../../src/Cards/Infrastructure/Controller/CardController.php
     type: attribute
     prefix: /api/v1/cards
     name_prefix: cards.

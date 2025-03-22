@@ -20,12 +20,44 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\Cards\Infrastructure\External\Factory\CardProviderFactory:
+        arguments:
+            $financeAdsProvider: '@App\Cards\Infrastructure\External\FinanceAds\FinanceAdsProvider'
+
+
+    App\Cards\Application\Service\CardImportService:
+        arguments:
+            $cardProviderFactory: '@App\Cards\Infrastructure\External\Factory\CardProviderFactory'
+            $cardRepository: '@App\Cards\Domain\Repository\CardsRepositoryInterface'
+
     App\Cards\Domain\Repository\CardsRepositoryInterface:
         class : App\Cards\Infrastructure\Persistence\Doctrine\Repository\DoctrineCardRepository
+        arguments:
+            $registry: '@doctrine'
+
+    App\Cards\Infrastructure\External\FinanceAds\FinanceAdsCardAdapter:
+        tags:
+            - { name: finance_ads_adapter }
+
+    App\Cards\Infrastructure\External\FinanceAds\FinanceAdsProvider:
+        arguments:
+            $client: '@http_client'
+            $apiUrl: 'https://tools.financeads.net/'
+            $adapter: '@App\Cards\Infrastructure\External\FinanceAds\FinanceAdsCardAdapter'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    # App\Cards\EventListener\ApiExceptionListener:
-    #     tags:
-    #         - { name: kernel.event_listener, event: kernel.exception }
+    App\Shared\Infrastructure\EventListener\ApiExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
+
+    App\Cards\Domain\Bus\CommandBusInterface:
+        class: App\Cards\Infrastructure\Bus\SymfonyCommandBus
+
+    App\Cards\Domain\Message\MessageHandlerInterface:
+        class: App\Cards\Application\Handler\ImportCardsHandler
+
+    App\Cards\Infrastructure\Message\SymfonyMessageHandler:
+        arguments:
+            $handler: '@App\Cards\Domain\Message\MessageHandlerInterface'

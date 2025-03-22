@@ -13,4 +13,8 @@ interface CardsRepositoryInterface
 
     public function save(Card $card): ?Card;
 
+    public function persistBatch(array $cards): array;
+
+    public function findOneBy(array $criteria, array $orderBy): ?Card;
+
 }

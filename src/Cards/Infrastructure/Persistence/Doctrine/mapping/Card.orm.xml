@@ -1,51 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
-                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                 https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-    
-<entity name="App\Cards\Domain\Entity\Card" table="cards">
-  <id name="id" type="integer" />
- private ?int $id = null;
-    <field name="link"  />
-    <field name="logo"  />
-    <field name="test_seal"  />
-    <field name="test_seal_url"  />
-    <field name="bank_id"  />
-    <field name="product_id"  />
-    <field name="description"  />
-    <field name="custom_description"  />
-    <field name="bank"  />
-    <field name="product"  />
-    <field name="custom_product_name"  />
-    <field name="rating"  />
-    <field name="evaluation_number"  />
-    <field name="incentive"  />
-    <field name="fees"  />
-    <field name="cost"  />
-    <field name="bonusprogram"  />
-    <field name="insurance"  />
-    <field name="benefits"  />
-    <field name="services"  />
-    <field name="special_features"  />
-    <field name="fees_action"  />
-    <field name="cost_action"  />
-    <field name="fees_first_year"  />
-    <field name="fees_after_first_year"  />
-    <field name="gc_atmfree_domestic"  />
-    <field name="gc_atmfree_international"  />
-    <field name="cc_atmfree_domestic"  />
-    <field name="cc_atmfree_international"  />
-    <field name="incentive_amount"  />
-    <field name="interest_rate"  />
-    <field name="shall_interest_rate"  />
-    <field name="cardtype"  />
-    <field name="cardtype_text"  />
-    <field name="cc_atmfree_euro"  />
-    <field name="kkoffer"  />
-    <field name="created_at"  />
-    <field name="updated_at"  />
-    <field name="custom_cost_action"  />
-    <field name="content_crc"  />
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-</entity>
+    <entity name="App\Cards\Domain\Entity\Card" table="cards" >
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+
+        <field name="name" type="string" length="255"/>
+        <field name="description" type="text"/>
+        <!-- <field name="customDescription" type="text" nullable="true"/> -->
+        
+        <!-- Bank Value Object -->
+        <embedded name="bank" class="App\Cards\Domain\Entity\Bank"/>
+        
+        <!-- CardType Value Object -->
+        <!-- <embedded nazme="type" class="App\Cards\Domain\Entity\CardType"/> -->
+        
+
+        
+        <!-- Arrays -->
+       <field name="benefits" type="json"/>
+        <field name="insurances" type="json"/>
+        <field name="services" type="json"/>
+         
+        <!-- ContentHash Value Object -->
+        <embedded name="contentHash" class="App\Cards\Domain\Entity\ContentHash" use-column-prefix="false"/>
+        
+        <!-- Timestamps -->
+        <field name="createdAt" column="created_at" type="datetime_immutable"/>
+        <field name="updatedAt" column="updated_at" type="datetime_immutable" nullable="true"/>
+    </entity>
+
 </doctrine-mapping>
