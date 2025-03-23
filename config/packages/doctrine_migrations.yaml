@@ -3,4 +3,6 @@ doctrine_migrations:
         # namespace is arbitrary but should be different from App\Migrations
         # as migrations classes should NOT be autoloaded
         'App\Cards\Infrastructure\Persistence\Doctrine\migrations': '%kernel.project_dir%/src/Cards/Infrastructure/Persistence/Doctrine/migrations'
+        'App\Clients\Infrastructure\Persistence\Doctrine\migrations': '%kernel.project_dir%/src/Clients/Infrastructure/Persistence/Doctrine/migrations'
+        'App\Users\Infrastructure\Persistence\Doctrine\migrations': '%kernel.project_dir%/src/User/Infrastructure/Persistence/Doctrine/migrations'
     enable_profiler: false

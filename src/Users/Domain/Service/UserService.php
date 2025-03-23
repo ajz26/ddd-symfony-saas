@@ -1,0 +1,22 @@
+<?php 
+
+declare(strict_types=1);
+
+namespace App\Users\Domain\Service;
+
+use App\Users\Domain\Entity\User;
+use App\Users\Domain\Repository\UserRepositoryInterface;
+
+
+final class UserService
+{
+    public function __construct(
+        private UserRepositoryInterface $userRepository
+    ) {
+    }
+
+    public function createUser(User $user): void
+    {
+        $this->userRepository->save($user);
+    }
+}

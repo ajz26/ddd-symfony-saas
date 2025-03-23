@@ -3,3 +3,21 @@ cards:
     type: attribute
     prefix: /api/v1/cards
     name_prefix: cards.
+
+clients:
+    resource: ../../src/Clients/Infrastructure/Controller/ClientController.php
+    type: attribute
+    prefix: /api/v1/clients
+    name_prefix: clients.
+
+Users:
+    resource: ../../src/Users/Infrastructure/Controller/UserController.php
+    type: attribute
+    prefix: /api/v1/users
+    name_prefix: users.
+
+Auth:
+    resource: ../../src/Users/Infrastructure/Controller/AuthController.php
+    type: attribute
+    prefix: /api/v1/auth
+    name_prefix: auth.

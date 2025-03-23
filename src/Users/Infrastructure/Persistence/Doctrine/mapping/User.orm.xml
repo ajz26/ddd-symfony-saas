@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Users\Domain\Entity\User" table="users">
+        <id name="id" type="string" length="36">
+            <generator strategy="IDENTITY"/>
+        </id>
+
+        <field name="email" column="email" type="user_email">
+            <options>
+                <option name="length">255</option>
+            </options>
+        </field>
+
+        <field name="password" column="password" type="user_password">
+            <options>
+                <option name="length">255</option>
+            </options>
+        </field>
+
+        <field name="firstName" type="string" length="255" />
+        <field name="lastName" type="string" length="255" />
+        <field name="createdAt" type="datetime_immutable" />
+        <field name="updatedAt" type="datetime_immutable" nullable="true" />
+    </entity>
+
+</doctrine-mapping> 
