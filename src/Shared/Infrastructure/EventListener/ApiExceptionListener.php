@@ -20,7 +20,9 @@ class ApiExceptionListener
             code: $exception instanceof HttpExceptionInterface 
                 ? $exception->getStatusCode() 
                 : Response::HTTP_INTERNAL_SERVER_ERROR,
-            trace: $exception->getTrace()
+            trace: !$exception instanceof HttpExceptionInterface 
+                ? $exception->getTrace()
+                : []
         );
 
         $response = new JsonResponse(
@@ -29,7 +31,8 @@ class ApiExceptionListener
         );
         
         if ($exception instanceof HttpExceptionInterface) {
-            $response->headers->replace($exception->getHeaders());
+             $response->headers->add($exception->getHeaders());
+
         }
         
         $event->setResponse($response);

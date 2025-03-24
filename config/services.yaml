@@ -61,3 +61,21 @@ services:
     App\Cards\Infrastructure\Message\SymfonyMessageHandler:
         arguments:
             $handler: '@App\Cards\Domain\Message\MessageHandlerInterface'
+
+    App\Users\Infrastructure\Security\UserProvider:
+        arguments:
+            $userRepository: '@App\Users\Domain\Repository\UserRepositoryInterface'
+            
+    App\Users\Domain\Service\TokenGeneratorInterface:
+        class: App\Users\Infrastructure\Service\JWTTokenGenerator
+        arguments:
+            $secretKey: '%env(JWT_SECRET_KEY)%'
+            $tokenTtl: 3600 # 1 hora
+
+    App\Users\Application\Service\AuthenticationService:
+        arguments:
+            $userRepository: '@App\Users\Domain\Repository\UserRepositoryInterface'
+            $tokenGenerator: '@App\Users\Domain\Service\TokenGeneratorInterface'
+    App\Users\Infrastructure\Security\JWTAuthenticator:
+        arguments:
+            $tokenGenerator: '@App\Users\Domain\Service\TokenGeneratorInterface'

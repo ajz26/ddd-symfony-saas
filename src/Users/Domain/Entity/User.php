@@ -39,6 +39,11 @@ class User
         return $this->password->verify($plainPassword);
     }
 
+    public function getPassword(): ?string
+    {
+        return $this->password->value();
+    }
+
     public function firstName(): string
     {
         return $this->firstName;

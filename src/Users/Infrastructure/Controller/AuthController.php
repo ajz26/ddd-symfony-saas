@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Users\Infrastructure\Controller;
 
-use App\Users\Application\Service\AuthenticationService;
-use App\Users\Domain\Exception\InvalidCredentialsException;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Users\Infrastructure\Security\SecurityUser;
+use App\Users\Application\Service\AuthenticationService;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use App\Users\Domain\Exception\InvalidCredentialsException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class AuthController extends AbstractController
 {
@@ -19,7 +21,7 @@ final class AuthController extends AbstractController
     ) {
     }
 
-    #[Route('/login', name: 'user_login', methods: ['POST'])]
+    #[Route('/login', name: 'auth.login', methods: ['POST'])]
     public function login(Request $request): JsonResponse
     {
         try {
@@ -32,19 +34,12 @@ final class AuthController extends AbstractController
                 );
             }
 
-            $user = $this->authService->authenticate(
+            $result = $this->authService->authenticate(
                 $content['email'],
                 $content['password']
             );
 
-            dd($user);
-
-            return new JsonResponse([
-                'id' => $user->id(),
-                'email' => $user->email()->value(),
-                'firstName' => $user->firstName(),
-                'lastName' => $user->lastName()
-            ]);
+            return new JsonResponse($result);
 
         } catch (InvalidCredentialsException $e) {
             return new JsonResponse(
@@ -58,4 +53,25 @@ final class AuthController extends AbstractController
             );
         }
     }
-} 
+
+
+    #[Route('/me', name: 'auth.me', methods: ['GET'])]
+    public function me(#[CurrentUser] ?SecurityUser $securityUser): JsonResponse
+    {
+        if (!$securityUser) {
+            return new JsonResponse(
+                ['error' => 'No autenticado'],
+                Response::HTTP_UNAUTHORIZED
+            );
+        }
+
+        $user = $securityUser->getUser();
+
+        return new JsonResponse([
+            'id' => $user->id(),
+            'email' => $user->email()->value(),
+            'firstName' => $user->firstName(),
+            'lastName' => $user->lastName()
+        ]);
+    }
+}
