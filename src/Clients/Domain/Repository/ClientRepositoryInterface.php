@@ -9,7 +9,7 @@ interface ClientRepositoryInterface
 
     public function findAll(): array;
 
-    public function findById(string $id): Client;
+    public function findById(int $id): Client;
 
     public function save(Client $client): void;
 

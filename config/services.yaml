@@ -79,3 +79,11 @@ services:
     App\Users\Infrastructure\Security\JWTAuthenticator:
         arguments:
             $tokenGenerator: '@App\Users\Domain\Service\TokenGeneratorInterface'
+
+    App\Shared\Infrastructure\ArgumentResolver\CurrentClientResolver:
+        tags:
+            - { name: controller.argument_value_resolver, priority: 50 }
+
+    App\Shared\Infrastructure\Service\CurrentClientProvider:
+        arguments:
+            $tokenStorage: '@security.token_storage'

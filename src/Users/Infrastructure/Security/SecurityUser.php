@@ -39,4 +39,5 @@ final class SecurityUser implements UserInterface, PasswordAuthenticatedUserInte
     {
         return $this->user;
     }
+    
 } 

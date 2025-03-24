@@ -21,4 +21,9 @@ final class UserService
 
         return $user;
     }
+
+    public function paginate(int $page = 1, int $limit = 10): array
+    {
+        return $this->userRepository->paginate($page, $limit);
+    }
 }

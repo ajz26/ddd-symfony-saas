@@ -23,6 +23,8 @@
 
         <field name="firstName" type="string" length="255" />
         <field name="lastName" type="string" length="255" />
+
+        <field name="clientId" type="client_id" />
         <field name="createdAt" type="datetime_immutable" />
         <field name="updatedAt" type="datetime_immutable" nullable="true" />
     </entity>

@@ -16,4 +16,6 @@ interface UserRepositoryInterface
     public function findByEmail(Email $email): ?User;
     
     public function delete(User $user): void;
+
+    public function paginate(int $page = 1, int $limit = 10): array;
 } 

@@ -27,8 +27,11 @@ final class Version20250323191611 extends AbstractMigration
             password VARCHAR(255) NOT NULL,
             first_name VARCHAR(255) NOT NULL,
             last_name VARCHAR(255) NOT NULL,
+            client_id INT NOT NULL,
             created_at DATETIME NOT NULL COMMENT '(DC2Type:datetime_immutable)',
             updated_at DATETIME DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
+            INDEX IDX_1483A5E919EB6921 (client_id),
+            CONSTRAINT FK_1483A5E919EB6921 FOREIGN KEY (client_id) REFERENCES clients (id),
             PRIMARY KEY(id)
         ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB"
        );

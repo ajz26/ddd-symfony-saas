@@ -15,7 +15,7 @@ class DoctrineClientRepository extends ServiceEntityRepository implements Client
         parent::__construct($registry, Client::class);
     }
 
-    public function findById(string $id): Client
+    public function findById(int $id): Client
     {
         return $this->findOneBy(['id' => $id]);
     }

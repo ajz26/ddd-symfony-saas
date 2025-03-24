@@ -5,6 +5,7 @@ namespace App\Users\Domain\Service;
 use App\Users\Domain\Entity\User;
 use App\Users\Domain\ValueObject\Email;
 use App\Users\Domain\ValueObject\Password;
+use App\Shared\Domain\ValueObject\ClientId;
 
 class UserHydrator
 {
@@ -15,6 +16,7 @@ class UserHydrator
      
         $user->setEmail(Email::fromString($data['email']));
         $user->setPassword(Password::fromPlainPassword($data['password']));
+        $user->setClientId(ClientId::fromString($data['clientId']));
         $user->setFirstName($data['firstName']);
         $user->setLastName($data['lastName']);
 

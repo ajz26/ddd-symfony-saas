@@ -2,8 +2,8 @@
 
 namespace App\Users\Domain\Entity;
 
+use App\Shared\Domain\ValueObject\ClientId;
 use App\Users\Domain\ValueObject\Email;
-use App\Users\Domain\ValueObject\UserId;
 use App\Users\Domain\ValueObject\Password;
 use DateTimeImmutable;
 
@@ -14,6 +14,7 @@ class User
     private Password $password;
     private string $firstName;
     private string $lastName;
+    private ClientId     $clientId;
     private DateTimeImmutable $createdAt;
     private ?DateTimeImmutable $updatedAt;
 
@@ -39,9 +40,9 @@ class User
         return $this->password->verify($plainPassword);
     }
 
-    public function getPassword(): ?string
+    public function getPassword(): Password
     {
-        return $this->password->value();
+        return $this->password;
     }
 
     public function firstName(): string
@@ -87,5 +88,20 @@ class User
     public function setLastName(string $lastName): void
     {
         $this->lastName = $lastName;
+    }
+
+    public function setClientId(ClientId $clientId): void
+    {
+        $this->clientId = $clientId;
+    }
+
+    public function getClientId(): ClientId
+    {
+        return $this->clientId;
+    }
+
+    public function clientId(): ClientId
+    {
+        return $this->clientId;
     }
 } 

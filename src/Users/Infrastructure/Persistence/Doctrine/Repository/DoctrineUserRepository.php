@@ -40,4 +40,20 @@ final class DoctrineUserRepository implements UserRepositoryInterface
         $this->entityManager->remove($user);
         $this->entityManager->flush();
     }
+
+    public function paginate(int $page = 1, int $limit = 10): array
+    {
+        $query = $this->entityManager->createQueryBuilder()
+            ->select('u')
+            ->from(User::class, 'u')
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit);
+
+        return [
+            'data' => $query->getQuery()->getResult(),
+            'page' => $page,
+            'limit' => $limit,
+            'total' => $query->getQuery()->getSingleScalarResult(),
+        ];
+    }
 } 

@@ -30,7 +30,7 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/v1/auth/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api/v1/users$, roles: PUBLIC_ACCESS, methods: [POST] }
+        - { path: ^/api/v1/users/$, roles: PUBLIC_ACCESS, methods: [POST] }
         - { path: ^/api/v1/, roles: ROLE_USER }
 
 when@test:
