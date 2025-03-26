@@ -2,7 +2,9 @@
 
 namespace App\Clients\Domain\Entity;
 
-class Client
+use App\Clients\Domain\Contracts\Client as ClientInterface;
+
+class Client implements ClientInterface
 {
     private $id;
 

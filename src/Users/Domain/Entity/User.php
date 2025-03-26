@@ -25,12 +25,12 @@ class User
     }
 
 
-    public function id(): string
+    public function getId(): string
     {
         return $this->id;
     }
 
-    public function email(): Email
+    public function getEmail(): Email
     {
         return $this->email;
     }
@@ -45,27 +45,27 @@ class User
         return $this->password;
     }
 
-    public function firstName(): string
+    public function getFirstName(): string
     {
         return $this->firstName;
     }
 
-    public function lastName(): string
+    public function getLastName(): string
     {
         return $this->lastName;
     }
 
-    public function fullName(): string
+    public function getFullName(): string
     {
         return sprintf('%s %s', $this->firstName, $this->lastName);
     }
 
-    public function createdAt(): DateTimeImmutable
+    public function getCreatedAt(): DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function updatedAt(): ?DateTimeImmutable
+    public function getUpdatedAt(): ?DateTimeImmutable
     {
         return $this->updatedAt;
     }
@@ -94,6 +94,8 @@ class User
     {
         $this->clientId = $clientId;
     }
+
+  
 
     public function getClientId(): ClientId
     {

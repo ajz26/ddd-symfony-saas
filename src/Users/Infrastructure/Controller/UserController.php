@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Users\Infrastructure\Controller;
 
-use App\Clients\Domain\Entity\Client;
+use App\Clients\Domain\Contracts\Client as CurrentClient;
 use App\Users\Domain\Entity\User;
 use App\Users\Domain\Service\UserHydrator;
 use Symfony\Component\HttpFoundation\Request;
 use App\Users\Application\Service\UserService;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Shared\Infrastructure\Attribute\CurrentClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -24,17 +23,17 @@ final class UserController extends AbstractController
     }
 
     #[Route('/', name: 'user_list', methods: ['GET'])]
-    public function listUsers(Request $request, #[CurrentClient] Client $clientId): JsonResponse
+    public function listUsers(Request $request, CurrentClient $client): JsonResponse
     {
 
-        dd($clientId);
+
         $page = $request->query->get('page', 1);
         $limit = $request->query->get('limit', 10);
 
 
         $users = $this->userService->paginate($page, $limit);
 
-        return new JsonResponse($users);
+        return $this->json($users);
     }
 
     #[Route('/', name: 'user_create', methods: ['POST'])]

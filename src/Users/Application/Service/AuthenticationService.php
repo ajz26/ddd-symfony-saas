@@ -69,11 +69,11 @@ final class AuthenticationService
     private function formatUserResponse(User $user): array
     {
         return [
-            'id' => $user->id(),
-            'email' => $user->email()->value(),
-            'firstName' => $user->firstName(),
-            'lastName' => $user->lastName(),
-            'fullName' => $user->fullName()
+            'id' => $user->getId(),
+            'email' => $user->getEmail()->getValue(),
+            'firstName' => $user->getFirstName(),
+            'lastName' => $user->getLastName(),
+            'fullName' => $user->getFullName()
         ];
     }
 } 

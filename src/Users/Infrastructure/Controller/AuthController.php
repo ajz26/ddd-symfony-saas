@@ -68,10 +68,10 @@ final class AuthController extends AbstractController
         $user = $securityUser->getUser();
 
         return new JsonResponse([
-            'id' => $user->id(),
-            'email' => $user->email()->value(),
-            'firstName' => $user->firstName(),
-            'lastName' => $user->lastName()
+            'id' => $user->getId(),
+            'email' => $user->getEmail()->getValue(),
+            'firstName' => $user->getFirstName(),
+            'lastName' => $user->getLastName()
         ]);
     }
 }

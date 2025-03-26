@@ -27,7 +27,7 @@ final class SecurityUser implements UserInterface, PasswordAuthenticatedUserInte
 
     public function getUserIdentifier(): string
     {
-        return $this->user->email()->value();
+        return $this->user->getEmail()->value();
     }
 
     public function eraseCredentials(): void

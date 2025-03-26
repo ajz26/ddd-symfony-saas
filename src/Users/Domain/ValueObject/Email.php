@@ -40,4 +40,10 @@ final class Email
     {
         return $this->value;
     }
+
+    public function getValue(): string
+    {
+        return $this->value;
+    }
+    
 } 

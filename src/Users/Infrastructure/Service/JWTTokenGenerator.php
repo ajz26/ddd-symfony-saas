@@ -23,8 +23,8 @@ final class JWTTokenGenerator implements TokenGeneratorInterface
     {
         $client = $this->clientRepository->findById($user->clientId()->value());
         $payload = [
-            'sub' => $user->id(),
-            'email' => $user->email()->value(),
+            'sub' => $user->getId(),
+            'email' => $user->getEmail()->getValue(),
             'client' => [
                 'id' => $client->getId(),
                 'name' => $client->getName()

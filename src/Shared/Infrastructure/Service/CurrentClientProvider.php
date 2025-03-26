@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Service;
 
-use App\Users\Domain\Entity\User;
 use App\Clients\Domain\Entity\Client;
-use App\Shared\Domain\ValueObject\ClientId;
 use App\Users\Infrastructure\Security\SecurityUser;
 use App\Clients\Domain\Repository\ClientRepositoryInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -27,7 +25,6 @@ final class CurrentClientProvider
             throw new \RuntimeException('No hay usuario autenticado');
         }
 
-
         $securityUser = $token->getUser();
 
         if (!$securityUser instanceof SecurityUser) {
@@ -44,8 +41,6 @@ final class CurrentClientProvider
         if (!$client) {
             throw new \RuntimeException('No hay cliente autenticado');
         }
-
-        dd($client);
 
         return $client;
     }

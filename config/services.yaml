@@ -30,11 +30,6 @@ services:
             $cardProviderFactory: '@App\Cards\Infrastructure\External\Factory\CardProviderFactory'
             $cardRepository: '@App\Cards\Domain\Repository\CardsRepositoryInterface'
 
-    App\Cards\Domain\Repository\CardsRepositoryInterface:
-        class : App\Cards\Infrastructure\Persistence\Doctrine\Repository\DoctrineCardRepository
-        arguments:
-            $registry: '@doctrine'
-
     App\Cards\Infrastructure\External\FinanceAds\FinanceAdsCardAdapter:
         tags:
             - { name: finance_ads_adapter }
@@ -80,10 +75,29 @@ services:
         arguments:
             $tokenGenerator: '@App\Users\Domain\Service\TokenGeneratorInterface'
 
-    App\Shared\Infrastructure\ArgumentResolver\CurrentClientResolver:
-        tags:
-            - { name: controller.argument_value_resolver, priority: 50 }
-
     App\Shared\Infrastructure\Service\CurrentClientProvider:
         arguments:
             $tokenStorage: '@security.token_storage'
+
+    App\Clients\Domain\Contracts\Client:
+        shared: true
+        public: true
+
+    App\Clients\Application\Service\TenantManager:
+        arguments:
+            $container: '@service_container'
+            $clientRepository: '@App\Clients\Domain\Repository\ClientRepositoryInterface'
+
+    App\Clients\Infrastructure\EventListener\TenantIdentificationSubscriber:
+        tags:
+            - { name: kernel.event_subscriber, priority: -10 }
+        arguments:
+            $tokenStorage: '@security.token_storage'
+            $currentClientProvider: '@App\Shared\Infrastructure\Service\CurrentClientProvider'
+            $tenantManager: '@App\Clients\Application\Service\TenantManager'
+
+    # Configuración del repositorio con caché
+    App\Clients\Domain\Repository\ClientRepositoryInterface:
+        class: App\Clients\Infrastructure\Persistence\Doctrine\Repository\DoctrineClientRepository
+
+    # Decorador de caché para el repositorio de clientes

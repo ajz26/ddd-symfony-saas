@@ -20,6 +20,7 @@ final class UserProvider implements UserProviderInterface
 
     public function loadUserByIdentifier(string $identifier): UserInterface
     {
+
         $user = $this->userRepository->findByEmail(Email::fromString($identifier));
 
         if (!$user) {

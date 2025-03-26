@@ -6,12 +6,12 @@ namespace App\Users\Application\Service;
 
 use App\Users\Domain\Entity\User;
 use App\Users\Domain\Repository\UserRepositoryInterface;
-
+use App\Clients\Application\Service\TenantManager;
 
 final class UserService
 {
     public function __construct(
-        private UserRepositoryInterface $userRepository
+        private UserRepositoryInterface $userRepository,
     ) {
     }
 
@@ -24,6 +24,7 @@ final class UserService
 
     public function paginate(int $page = 1, int $limit = 10): array
     {
+        
         return $this->userRepository->paginate($page, $limit);
     }
 }
