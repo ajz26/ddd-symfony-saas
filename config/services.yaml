@@ -101,3 +101,16 @@ services:
         class: App\Clients\Infrastructure\Persistence\Doctrine\Repository\DoctrineClientRepository
 
     # Decorador de caché para el repositorio de clientes
+
+    App\Shared\Domain\Event\EventDispatcher:
+        class: App\Shared\Infrastructure\Event\DomainEventDispatcher
+        arguments:
+            $subscribers: !tagged_iterator domain.event.subscriber
+
+    App\Clients\Application\Event\ClientSwitchedSubscriber:
+        arguments:
+            $activityLogger: '@App\Clients\Domain\Port\ClientActivityLogger'
+        tags: ['domain.event.subscriber']
+
+    App\Clients\Domain\Port\ClientActivityLogger:
+        class: App\Clients\Infrastructure\Logger\PsrClientActivityLogger
